@@ -19,7 +19,7 @@ const textColorHandler = (value: string) => {
   }
 };
 
-export const GoodsList: React.FC<Props> = ({ goods }) => (
+const GoodsListComponent: React.FC<Props> = ({ goods }) => (
   <ul>
     {goods.map(good => (
       <li
@@ -32,3 +32,5 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
     ))}
   </ul>
 );
+
+export const GoodsList = React.memo(GoodsListComponent);
