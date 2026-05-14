@@ -6,9 +6,14 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [preparedGoodsList, setPreparedGoodsList] = React.useState<Good[]>([]);
+  const [hasError, setHasError] = React.useState<boolean>(false);
 
   const getDataToRender = (source: Promise<Good[]>): void => {
-    source.then(setPreparedGoodsList);
+    setHasError(false);
+
+    source.then(setPreparedGoodsList).catch(() => {
+      setHasError(true);
+    });
   };
 
   return (
@@ -44,6 +49,7 @@ export const App: React.FC = () => {
       </button>
 
       <GoodsList goods={preparedGoodsList} />
+      {hasError && <p>Something went wrong</p>}
     </div>
   );
 };
